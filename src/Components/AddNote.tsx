@@ -1,10 +1,17 @@
 import styled from "styled-components";
 
-const AddNote = () => {
+const AddNote = ({
+  setShow,
+}: {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
-    <AddNoteContainer>
-      <h1>Add Note</h1>
+    <AddNoteContainer id="note-container">
       <form>
+        <div className="close-btn" onClick={() => setShow(false)}>
+          &times;
+        </div>
+        <h1>Add Note</h1>
         <div className="input-group">
           <label htmlFor="note-title">Title</label>
           <input type="text" id="note-title" placeholder="Title" />
@@ -27,15 +34,25 @@ const AddNote = () => {
 };
 
 const AddNoteContainer = styled.div`
-  position: relative;
-  box-shadow: 0px 0px 23px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  max-width: min(500px, 100% - 2rem);
-  border-radius: 10px;
-  margin: 2rem auto;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  backdrop-filter: blur(2px);
+
   form {
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 0px 23px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: min(500px, 100% - 2rem);
+    border-radius: 10px;
+    position: relative;
+    margin: 2rem auto;
+    background: #f8f8f8;
     gap: 1rem;
     input,
     textarea {
@@ -57,6 +74,13 @@ const AddNoteContainer = styled.div`
       border: none;
       border-radius: 6px;
       outline: none;
+      cursor: pointer;
+    }
+    .close-btn {
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      font-size: 1.5rem;
       cursor: pointer;
     }
   }

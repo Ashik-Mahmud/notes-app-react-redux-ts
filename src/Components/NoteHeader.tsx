@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
-const NoteHeader = () => {
+const NoteHeader = ({
+  setShow,
+}: {
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <NoteHeaderContainer>
       <h1>Notes List</h1>
-      <button>Add New Notes +</button>
+      <button onClick={() => setShow(true)}>Add New Notes +</button>
     </NoteHeaderContainer>
   );
 };
@@ -17,6 +21,7 @@ const NoteHeaderContainer = styled.div`
   padding: 1rem;
   flex-wrap: wrap;
   border-radius: 5px;
+  margin: 1rem 0rem;
   button {
     background: #00acfa;
     font-size: 1rem;
