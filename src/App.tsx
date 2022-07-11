@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import NoteContainer from "./Components/NoteContainer";
 
 function App() {
   return (
     <AppContainer className="App">
-      <h1>Hello World</h1>
+      <NoteContainer />
     </AppContainer>
   );
 }
