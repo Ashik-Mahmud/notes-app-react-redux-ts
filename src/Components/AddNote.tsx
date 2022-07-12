@@ -1,20 +1,38 @@
 import styled from "styled-components";
+import { IAddNote } from "../type";
+
+type Props = {
+  formData: IAddNote;
+  setFormData: React.Dispatch<React.SetStateAction<IAddNote>>;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+};
 
 const AddNote = ({
   setShow,
-}: {
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+  formData,
+  setFormData,
+  handleChange,
+  handleSubmit,
+}: Props) => {
   return (
     <AddNoteContainer id="note-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="close-btn" onClick={() => setShow(false)}>
           &times;
         </div>
         <h1>Add Note</h1>
         <div className="input-group">
           <label htmlFor="note-title">Title</label>
-          <input type="text" id="note-title" placeholder="Title" />
+          <input
+            type="text"
+            id="note-title"
+            placeholder="Title"
+            value={formData.title}
+            onChange={handleChange}
+            name="title"
+          />
         </div>
         <div className="input-group">
           <label htmlFor="note-description">Descriptions</label>
@@ -22,6 +40,8 @@ const AddNote = ({
             name="description"
             id="description"
             rows={3}
+            value={formData.description}
+            onChange={handleChange}
             placeholder="Write Down Note Description"
           ></textarea>
         </div>

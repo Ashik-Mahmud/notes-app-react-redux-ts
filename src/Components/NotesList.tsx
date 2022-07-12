@@ -1,15 +1,27 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { state } from "../store/Reducers";
+import { INotesAction } from "../type";
 import NoteItem from "./NoteItem";
 
-const NotesList = () => {
+const NotesList = ({
+  handleDeleteNotes,
+}: {
+  handleDeleteNotes: (id: number) => void;
+}) => {
+  const notes: INotesAction[] = useSelector((state: state) => state.Notes);
+
   return (
     <NoteListContainer>
+      {notes.length === 0 && <h3>No Notes Found</h3>}
       <ul>
-        <NoteItem />
-        <NoteItem />
-        <NoteItem />
-        <NoteItem />
-        <NoteItem />
+        {notes.map((note) => (
+          <NoteItem
+            key={note.id}
+            note={note}
+            handleDeleteNotes={handleDeleteNotes}
+          />
+        ))}
       </ul>
     </NoteListContainer>
   );
@@ -32,12 +44,16 @@ const NoteListContainer = styled.div`
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.08);
       padding: 1rem;
       border-radius: 5px;
+      background: #f8f8f8;
       p {
         font-size: 0.9rem;
         margin: 0.5rem 0rem;
       }
       .action {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         button {
           background: #f8f8f8;
           border: none;
