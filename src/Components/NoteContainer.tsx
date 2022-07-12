@@ -8,8 +8,14 @@ import AddNote from "./AddNote";
 import NoteHeader from "./NoteHeader";
 import NotesList from "./NotesList";
 
+export type editProps = {
+  updateForm?: boolean;
+  items?: INotesAction;
+};
+
 const NoteContainer = () => {
   const [show, setShow] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<editProps | {}>({});
   const dispatch = useDispatch();
   const notes: INotesAction[] = useSelector((state: state) => state.Notes);
 
@@ -49,6 +55,15 @@ const NoteContainer = () => {
     DeleteNoteAction(id);
   };
 
+  /* Edit Notes Data */
+  const handleEditNotes = (note: INotesAction) => {
+    console.log("Edit", note);
+    if (note) {
+      setShow(true);
+      setIsEdit({ updateForm: true, items: note });
+    }
+  };
+
   return (
     <div>
       {show && (
@@ -58,10 +73,14 @@ const NoteContainer = () => {
           setFormData={setFormData}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          isEdit={isEdit}
         />
       )}
       <NoteHeader setShow={setShow} />
-      <NotesList handleDeleteNotes={handleDeleteNotes} />
+      <NotesList
+        handleDeleteNotes={handleDeleteNotes}
+        handleEditNotes={handleEditNotes}
+      />
     </div>
   );
 };

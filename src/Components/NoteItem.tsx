@@ -3,9 +3,11 @@ import { INotesAction } from "../type";
 const NoteItem = ({
   note,
   handleDeleteNotes,
+  handleEditNotes,
 }: {
   note: INotesAction;
   handleDeleteNotes: (id: number) => void;
+  handleEditNotes: (note: INotesAction) => void;
 }) => {
   return (
     <li>
@@ -13,7 +15,7 @@ const NoteItem = ({
       <p>{note.description}</p>
       <div className="action">
         <div>
-          <button>Edit</button>
+          <button onClick={() => handleEditNotes(note)}>Edit</button>
           <button onClick={() => handleDeleteNotes(note.id)}>Delete</button>
         </div>
         <small>{note.createdAt}</small>

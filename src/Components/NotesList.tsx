@@ -6,8 +6,10 @@ import NoteItem from "./NoteItem";
 
 const NotesList = ({
   handleDeleteNotes,
+  handleEditNotes,
 }: {
   handleDeleteNotes: (id: number) => void;
+  handleEditNotes: (note: INotesAction) => void;
 }) => {
   const notes: INotesAction[] = useSelector((state: state) => state.Notes);
 
@@ -20,6 +22,7 @@ const NotesList = ({
             key={note.id}
             note={note}
             handleDeleteNotes={handleDeleteNotes}
+            handleEditNotes={handleEditNotes}
           />
         ))}
       </ul>

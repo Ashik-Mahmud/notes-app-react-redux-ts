@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IAddNote } from "../type";
+import { editProps } from "./NoteContainer";
 
 type Props = {
   formData: IAddNote;
@@ -7,6 +8,7 @@ type Props = {
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   handleChange: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  isEdit: editProps;
 };
 
 const AddNote = ({
@@ -15,6 +17,7 @@ const AddNote = ({
   setFormData,
   handleChange,
   handleSubmit,
+  isEdit,
 }: Props) => {
   return (
     <AddNoteContainer id="note-container">
@@ -22,7 +25,7 @@ const AddNote = ({
         <div className="close-btn" onClick={() => setShow(false)}>
           &times;
         </div>
-        <h1>Add Note</h1>
+        <h1>{isEdit.updateForm ? "Update Note" : "Add Note"}</h1>
         <div className="input-group">
           <label htmlFor="note-title">Title</label>
           <input
